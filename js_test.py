@@ -52,6 +52,32 @@ def get_smallest_non_negative_difference_set(list_1, list_2):
     print(result_list)
 
 
+# Another way to Question - 1
+# This method assume that we don't more than one pair where there it has same difference.
+# PS: I did not add those pairs into another list like I have in the other function.
+def get_non_negative_difference(list_1, list_2):
+    list_1.sort()
+    list_2.sort()
+
+    filtered_list_1 = [ele for ele in list_1 if ele > 0]
+    filtered_list_2 = [ele for ele in list_2 if ele > 0]
+
+    result = None
+    difference = sys.maxsize
+
+    for idx, x in enumerate(filtered_list_1):
+        list_1_index = idx
+        list_1_value = x
+        for i in range(list_1_index, len(filtered_list_2)):
+            list_2_value = filtered_list_2[i]
+            difference_value = abs(list_1_value - list_2_value)
+            if difference_value < difference:
+                difference = difference_value
+                result = [list_1_value, list_2_value]
+
+    return result
+
+
 def get_randon_arrays_of_integers():
     # Using the numpi
     return np.random.randint(1, 1000000, size=(2, 1000))
@@ -61,12 +87,23 @@ if __name__ == "__main__":
     list_eg_1_1 = [5, 8, 10, 20]
     list_eg_1_2 = [1, 3, 6, 9, 13, 19]
     get_smallest_non_negative_difference_set(list_eg_1_1, list_eg_1_2)
+    print(get_non_negative_difference(list_eg_1_1, list_eg_1_2))
 
     list_eg_2_1 = [5, 8, 10, 19]
     list_eg_2_2 = [1, 3, 12, 20]
     get_smallest_non_negative_difference_set(list_eg_2_1, list_eg_2_2)
+    print(get_non_negative_difference(list_eg_2_1, list_eg_2_2))
 
     random_integer_arrays = get_randon_arrays_of_integers()
     random_integer_list_1 = random_integer_arrays[0]
     random_integer_list_2 = random_integer_arrays[1]
     get_smallest_non_negative_difference_set(random_integer_list_1, random_integer_list_2)
+
+
+
+
+
+# Question 3:
+#     1: Numpi,
+#     2: Pandas
+#     3: spark
